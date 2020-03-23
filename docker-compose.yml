@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/shitsucomi-management
+    ports:
+      - "5000:5000"
+    command: sh -c 'rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 5000'
+    tty: true
+    stdin_open: true
+    networks:
+      - shitsucomi_network
+    environment:
+      MYSQL_HOST: db
+
+networks:
+  shitsucomi_network:
+    external: true
